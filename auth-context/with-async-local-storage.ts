@@ -10,9 +10,4 @@ export function getContext<T>(): T | undefined {
     return asyncLocalStorage.getStore() as T | undefined;
 }
 
-export function setContext<T>(newContext: T): void {
-    const currentContext = asyncLocalStorage.getStore();
-    asyncLocalStorage.enterWith({ ...currentContext, ...newContext });
-}
-
 export default withAsyncLocalStorage;
