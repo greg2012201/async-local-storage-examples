@@ -1,13 +1,11 @@
-import { getContext } from "./with-async-local-storage";
 import { Context } from "./types";
-import { authContext } from "./server";
 import { UserRepository } from "./user-repository";
 
 class UserService {
-    constructor(private userRepository: UserRepository, private authContext: Context) {}
+    constructor(private userRepository: UserRepository, private context: Context) {}
 
     async getEmailAddresses(): Promise<string[]> {
-        const userId = this.authContext.get("userId");
+        const userId = this.context.get("userId");
         if (!userId) {
             throw new Error("User ID not found in context");
         }
