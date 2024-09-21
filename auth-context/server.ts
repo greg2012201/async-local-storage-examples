@@ -1,18 +1,17 @@
 import Fastify, { type FastifyRequest, type FastifyReply } from "fastify";
-import ExternalService from "./external-service";
-import withAsyncLocalStorage, { setContext, getContext } from "./with-async-local-storage";
+import withAsyncLocalStorage, { getContext } from "./with-async-local-storage";
 import { Context } from "./types";
 import { getUserIdFromToken } from "./utils";
 
 const app = Fastify();
-const globalContext: Context = new Map();
 
 function sendUnauthorized(reply: FastifyReply, message: string) {
     reply.code(401).send({ error: `Unauthorized: ${message}` });
 }
 
 app.addHook("onRequest", (request: FastifyRequest, reply: FastifyReply, done: () => void) => {
-    withAsyncLocalStorage<Context>(globalContext, () => {
+    const authContext: Context = new Map();
+    withAsyncLocalStorage<Context>(authContext, () => {
         const accessToken = request.headers.authorization?.split(" ")[1];
         const userId = accessToken ? getUserIdFromToken(accessToken) : null;
 
@@ -27,7 +26,6 @@ app.addHook("onRequest", (request: FastifyRequest, reply: FastifyReply, done: ()
         }
 
         const context = getContext<Context>();
-        setContext<Context>(context);
         context.set("userId", userId);
         done();
     });
