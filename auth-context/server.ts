@@ -33,8 +33,6 @@ app.addHook("onRequest", (request: FastifyRequest, reply: FastifyReply, done: ()
     });
 });
 app.get("/email-addresses", async () => {
-    //
-
     const context = getContext<Context>();
     const userRepository = new UserRepository();
     const userService = new UserService(userRepository, context);
