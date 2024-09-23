@@ -1,6 +1,6 @@
 const MOCK_USER = {
     userId: "user_123",
-    accessToken: "mock_access_token_456",
+    accessToken: "mocked_access_token_456",
 };
 export function getUserIdFromToken(token: string): string {
     // In a real scenario, this would decode and validate the token
