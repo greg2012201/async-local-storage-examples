@@ -2,7 +2,6 @@ import Fastify, { type FastifyRequest, type FastifyReply } from "fastify";
 import withAsyncLocalStorage, { getContext } from "./with-async-local-storage";
 import { Context } from "./types";
 import { getUserIdFromToken } from "./utils";
-import UserService from "./user-service";
 import { UserRepository } from "./user-repository";
 
 const app = Fastify();
@@ -34,9 +33,9 @@ app.addHook("onRequest", (request: FastifyRequest, reply: FastifyReply, done: ()
 });
 app.get("/email-addresses", async () => {
     const context = getContext<Context>();
+    const userId = context.get("userId");
     const userRepository = new UserRepository();
-    const userService = new UserService(userRepository, context);
-    const addresses = await userService.getEmailAddresses();
+    const addresses = await userRepository.getEmailAddresses(userId);
 
     return { addresses };
 });
