@@ -1,0 +1,16 @@
+{
+    "name": "with-promise-all",
+    "version": "1.0.0",
+    "description": "A project demonstrating Promise.all usage with async local storage",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "tsc",
+        "start": "node dist/index.js",
+        "dev": "ts-node src/index.ts"
+    },
+    "devDependencies": {
+        "@types/node": "^18.16.3",
+        "ts-node": "^10.9.1",
+        "typescript": "^5.0.4"
+    }
+}
