@@ -1,9 +1,9 @@
 import type { FC } from "hono/jsx";
 
-const App: FC = (props) => {
+const App: FC = ({ children }) => {
     return (
         <html>
-            <body>{props.children}</body>
+            <body>{children}</body>
         </html>
     );
 };
