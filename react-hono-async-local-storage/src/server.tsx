@@ -1,10 +1,10 @@
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { logger } from "hono/logger";
-import Greeting from "./components/Greeting";
 import withAsyncLocalStorage from "./with-async-local-storage";
-import App from "./components/App";
+import App from "./components/app";
 import { getCookie, setCookie, deleteCookie } from "hono/cookie";
+import DisplayCookies from "./components/display-cookies";
 
 const app = new Hono();
 
@@ -23,10 +23,10 @@ app.use(async (c, next) => {
     );
 });
 
-app.get("/:name", (c) => {
+app.get("/", (c) => {
     return c.html(
         <App>
-            <Greeting name={c.req.param("name")} />
+            <DisplayCookies />
         </App>
     );
 });
