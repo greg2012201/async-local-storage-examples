@@ -3,24 +3,17 @@ import { Hono } from "hono";
 import { logger } from "hono/logger";
 import withAsyncLocalStorage from "./with-async-local-storage";
 import App from "./components/app";
-import { getCookie, setCookie, deleteCookie } from "hono/cookie";
 import DisplayCookies from "./components/display-cookies";
+import { setCookieStore } from "./cookies";
 
 const app = new Hono();
 
 app.use(logger());
 
 app.use(async (c, next) => {
-    return withAsyncLocalStorage(
-        {
-            cookies: getCookie(c),
-            setCookie: (key: string, value: string) => setCookie(c, key, value),
-            deleteCookie: (key: string) => deleteCookie(c, key),
-        },
-        async () => {
-            await next();
-        }
-    );
+    return withAsyncLocalStorage(setCookieStore(c), async () => {
+        await next();
+    });
 });
 
 app.get("/", (c) => {
