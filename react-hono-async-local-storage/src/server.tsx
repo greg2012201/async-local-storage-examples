@@ -4,14 +4,14 @@ import { logger } from "hono/logger";
 import withAsyncLocalStorage from "./with-async-local-storage";
 import App from "./components/app";
 import DisplayCookies from "./components/display-cookies";
-import { setCookieStore } from "./cookies";
+import { setCookieContext } from "./cookies";
 
 const app = new Hono();
 
 app.use(logger());
 
 app.use(async (c, next) => {
-    return withAsyncLocalStorage(setCookieStore(c), async () => {
+    return withAsyncLocalStorage(setCookieContext(c), async () => {
         await next();
     });
 });
