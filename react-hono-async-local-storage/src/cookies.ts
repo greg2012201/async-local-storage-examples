@@ -3,7 +3,7 @@ import { getContext } from "./with-async-local-storage";
 import { Context, Env } from "hono";
 import { deleteCookie, getCookie, setCookie } from "hono/cookie";
 
-export function setCookieStore(c: Context<Env, never, {}>) {
+export function setCookieContext(c: Context<Env, never, {}>) {
     return {
         cookies: getCookie(c),
         setCookie: (key: string, value: string) => setCookie(c, key, value),
