@@ -1,4 +1,4 @@
-import { UserContext } from "./types";
+import type { UserContext } from "./types";
 import { sleep } from "./utils";
 import { getContext } from "./with-async-local-storage";
 
