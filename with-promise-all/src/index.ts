@@ -1,4 +1,5 @@
 import { fetchUserProfile, fetchUserBooks, fetchNotifications, fetchUserActivity } from "./fetchers";
+import { UserData } from "./types";
 import withAsyncLocalStorage from "./with-async-local-storage";
 
 async function collectUsersData() {
@@ -21,7 +22,7 @@ function main() {
     const userId = "user123";
 
     withAsyncLocalStorage({ userId }, async () => {
-        const usersData = await collectUsersData();
+        const usersData: UserData = await collectUsersData();
         console.log("usersData", usersData);
     });
 }
