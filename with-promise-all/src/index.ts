@@ -8,7 +8,7 @@ async function collectUsersData() {
         fetchNotifications(),
         fetchUserActivity(),
     ]);
-
+    // typically you would use a library like zod for validation
     return {
         ...userProfile,
         ...userBooks,
