@@ -18,3 +18,7 @@ export type UserData = {
     name: string;
     email: string;
 };
+
+export type UserContext = {
+    userId: string;
+};
