@@ -11,23 +11,18 @@ function sendUnauthorized(reply: FastifyReply, message: string) {
 }
 
 app.addHook("onRequest", (request: FastifyRequest, reply: FastifyReply, done: () => void) => {
-    const authContext: Context = new Map();
-    withAsyncLocalStorage<Context>(authContext, () => {
-        const accessToken = request.headers.authorization?.split(" ")[1];
-        const userId = accessToken ? getUserIdFromToken(accessToken) : null;
+    const accessToken = request.headers.authorization?.split(" ")[1];
+    const userId = accessToken ? getUserIdFromToken(accessToken) : null;
+    if (!accessToken) {
+        sendUnauthorized(reply, "Missing access token");
+        return;
+    }
 
-        if (!accessToken) {
-            sendUnauthorized(reply, "Missing access token");
-            return;
-        }
-
-        if (!userId) {
-            sendUnauthorized(reply, "Invalid or expired token");
-            return;
-        }
-
-        const context = getContext<Context>();
-        context.set("userId", userId);
+    if (!userId) {
+        sendUnauthorized(reply, "Invalid or expired token");
+        return;
+    }
+    withAsyncLocalStorage<Context>(new Map([["userId", userId]]), () => {
         done();
     });
 });
