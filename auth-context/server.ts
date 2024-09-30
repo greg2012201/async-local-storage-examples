@@ -15,12 +15,10 @@ app.addHook("onRequest", (request: FastifyRequest, reply: FastifyReply, done: ()
     const userId = accessToken ? getUserIdFromToken(accessToken) : null;
     if (!accessToken) {
         sendUnauthorized(reply, "Missing access token");
-        return;
     }
 
     if (!userId) {
         sendUnauthorized(reply, "Invalid or expired token");
-        return;
     }
     withAsyncLocalStorage<Context>(new Map([["userId", userId]]), () => {
         done();
