@@ -1,7 +1,7 @@
 import Fastify, { type FastifyRequest, type FastifyReply } from "fastify";
 import withAsyncLocalStorage, { getContext } from "./with-async-local-storage";
 import { Context } from "./types";
-import { getUserIdFromToken } from "./utils";
+import { getUserIdFromToken, validateToken } from "./utils";
 import { UserRepository } from "./user-repository";
 
 const app = Fastify();
@@ -12,17 +12,17 @@ function sendUnauthorized(reply: FastifyReply, message: string) {
 
 app.addHook("onRequest", (request: FastifyRequest, reply: FastifyReply, done: () => void) => {
     const accessToken = request.headers.authorization?.split(" ")[1];
-    const userId = accessToken ? getUserIdFromToken(accessToken) : null;
-    if (!accessToken) {
-        sendUnauthorized(reply, "Missing access token");
+    const isTokenValid = validateToken(accessToken);
+    if (!isTokenValid) {
+        sendUnauthorized(reply, "Access token is invalid");
     }
+    const userId = accessToken ? getUserIdFromToken(accessToken) : null;
 
     if (!userId) {
         sendUnauthorized(reply, "Invalid or expired token");
+        return;
     }
-    withAsyncLocalStorage<Context>(new Map([["userId", userId]]), () => {
-        done();
-    });
+    withAsyncLocalStorage<Context>(new Map([["userId", userId]]), done);
 });
 app.get("/email-addresses", async () => {
     const context = getContext<Context>();
