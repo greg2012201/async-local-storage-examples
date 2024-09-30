@@ -1,1 +1,1 @@
-export type Context = Map<"userId" | "accessToken", string>;
+export type Context = Map<"userId", string>;
