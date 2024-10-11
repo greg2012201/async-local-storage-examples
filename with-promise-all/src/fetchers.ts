@@ -1,6 +1,6 @@
 import type { UserContext } from "./types";
 import { sleep } from "./utils";
-import { getContext } from "./with-async-local-storage";
+import { getContext } from "./async-local-storage";
 
 function getUserId(): string {
     const context = getContext<UserContext>();
