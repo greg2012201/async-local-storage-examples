@@ -1,9 +1,9 @@
 import type { UserContext } from "./types";
 import { sleep } from "./utils";
-import { getContext } from "./async-local-storage";
+import { asyncLocalStorage } from "./async-local-storage";
 
 function getUserId(): string {
-    const context = getContext<UserContext>();
+    const context = asyncLocalStorage.getStore();
     if (!context || !context.userId) {
         throw new Error("User context not found");
     }

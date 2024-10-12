@@ -1,6 +1,6 @@
 import { fetchUserProfile, fetchUserBooks, fetchNotifications, fetchUserActivity } from "./fetchers";
 import { UserData } from "./types";
-import asyncLocalStorage from "./async-local-storage";
+import { asyncLocalStorage } from "./async-local-storage";
 
 async function collectUsersData() {
     const [userProfile, userBooks, notifications, userActivity] = await Promise.all([

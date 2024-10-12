@@ -1,7 +1,7 @@
 import type { CookieContext } from "types";
-import { getContext } from "./with-async-local-storage";
 import { Context, Env } from "hono";
 import { deleteCookie, getCookie, setCookie } from "hono/cookie";
+import { cookieAsyncLocalStorage } from "context";
 
 export function setCookieContext(c: Context<Env, never, {}>) {
     return {
@@ -12,7 +12,7 @@ export function setCookieContext(c: Context<Env, never, {}>) {
 }
 
 function cookies() {
-    const context = getContext<CookieContext>();
+    const context = cookieAsyncLocalStorage.getStore();
 
     return {
         getCookies: () => {
