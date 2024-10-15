@@ -1,4 +1,4 @@
-import { Context, Env } from "hono";
+import type { Context, Env } from "hono";
 import { deleteCookie, getCookie, setCookie } from "hono/cookie";
 import { cookieAsyncLocalStorage } from "context";
 
