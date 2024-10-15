@@ -2,6 +2,8 @@ import type { Context, Env } from "hono";
 import { deleteCookie, getCookie, setCookie } from "hono/cookie";
 import { cookieAsyncLocalStorage } from "context";
 
+const MOCK_ERROR = "Can not set or delete cookie in server component";
+
 export function setCookieContext(c: Context<Env, never, {}>) {
     return {
         cookies: getCookie(c),
@@ -21,8 +23,12 @@ function cookies() {
                 value,
             }));
         },
-        setCookie: (key: string, value: string) => context?.setCookie(key, value),
-        deleteCookie: (key: string) => context?.deleteCookie(key),
+        setCookie: (key: string, value: string) => {
+            throw new Error(MOCK_ERROR);
+        },
+        deleteCookie: (key: string) => {
+            throw new Error(MOCK_ERROR);
+        },
     };
 }
 
