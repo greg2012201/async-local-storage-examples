@@ -16,7 +16,6 @@ app.addHook("onRequest", (request: FastifyRequest, reply: FastifyReply, done: ()
         sendUnauthorized(reply, "Access token is invalid");
     }
     const userId = accessToken ? getUserIdFromToken(accessToken) : null;
-console.log('userId', userId)
     if (!userId) {
         sendUnauthorized(reply, "Invalid or expired token");
     }
