@@ -7,11 +7,11 @@
     },
     "dependencies": {
         "@hono/node-server": "^1.13.1",
-        "hono": "^3.0.0"
+        "hono": "^4.6.5"
     },
     "devDependencies": {
-        "@types/node": "^18.16.3",
-        "nodemon": "^2.0.22",
+        "@types/node": "^22.7.7",
+        "nodemon": "^3.1.7",
         "ts-node": "^10.9.2",
         "typescript": "^5.6.2"
     }
