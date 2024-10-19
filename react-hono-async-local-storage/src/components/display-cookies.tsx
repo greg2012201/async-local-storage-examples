@@ -4,8 +4,6 @@ import cookies from "../cookies";
 const DisplayCookies: FC = () => {
     const cookieStore = cookies();
 
-    cookieStore.setCookie("test", "welcome!");
-
     return (
         <div>
             <h1>Hello!</h1>
