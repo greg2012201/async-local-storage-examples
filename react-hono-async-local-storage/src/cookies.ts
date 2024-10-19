@@ -1,6 +1,6 @@
 import type { Context, Env } from "hono";
 import { deleteCookie, getCookie, setCookie } from "hono/cookie";
-import { cookieAsyncLocalStorage } from "context";
+import { cookieAsyncLocalStorage } from "./context";
 
 const MOCK_ERROR = "Can not set or delete cookie in server component";
 

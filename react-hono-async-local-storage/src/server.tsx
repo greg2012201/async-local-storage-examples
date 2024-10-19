@@ -4,7 +4,7 @@ import { logger } from "hono/logger";
 import App from "./components/app";
 import DisplayCookies from "./components/display-cookies";
 import { setCookieContext } from "./cookies";
-import { cookieAsyncLocalStorage } from "context";
+import { cookieAsyncLocalStorage } from "./context";
 
 const app = new Hono();
 
