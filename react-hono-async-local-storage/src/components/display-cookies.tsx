@@ -1,8 +1,8 @@
 import { FC } from "hono/jsx";
 import cookies from "../cookies";
 
-const DisplayCookies: FC = () => {
-    const cookieStore = cookies();
+const DisplayCookies: FC = async () => {
+    const cookieStore = await cookies();
 
     return (
         <div>

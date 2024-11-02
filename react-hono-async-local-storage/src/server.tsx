@@ -16,12 +16,9 @@ app.use(async (c, next) => {
     });
 });
 
-app.get("/", (c) => {
-    return c.html(
-        <App>
-            <DisplayCookies />
-        </App>
-    );
+app.get("/", async (c) => {
+    const renderDisplayCookiesComponent = await (<DisplayCookies />);
+    return c.html(<App>{renderDisplayCookiesComponent}</App>);
 });
 
 serve(

@@ -15,7 +15,7 @@ export function setCookieContext(c: Context<Env, never, {}>) {
 function cookies() {
     const context = cookieAsyncLocalStorage.getStore();
 
-    return {
+    const methods = {
         getCookies: () => {
             if (!context?.cookies) return [];
             return Object.entries(context.cookies).map(([key, value]) => ({
@@ -30,6 +30,10 @@ function cookies() {
             throw new Error(MOCK_ERROR);
         },
     };
+
+    return new Promise<typeof methods>((resolve) => {
+        resolve(methods);
+    });
 }
 
 export default cookies;
